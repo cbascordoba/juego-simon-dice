@@ -13,6 +13,7 @@
         }
 
         inicializar() {
+            this.elegirColor = this.elegirColor.bind(this)
           btnEmpezar.classList.add('hide')
           this.nivel = 5
           this.colores = {
@@ -38,6 +39,7 @@
         //Funcion que va a llamar a iluminar frecuencia
         siguienteNivel(){
             this.iluminarSecuencia()
+            this.agregarEventosClick()
         }
 
         transformarNumeroAColor(numero){
@@ -69,6 +71,17 @@
 
         apagarColor(color){
             this.colores[color].classList.remove('light')
+        }
+
+        agregarEventosClick(){
+            this.colores.azul.addEventListener('click', this.elegirColor)
+            this.colores.rojo.addEventListener('click', this.elegirColor)
+            this.colores.amarillo.addEventListener('click', this.elegirColor)
+            this.colores.verde.addEventListener('click', this.elegirColor)
+        }
+
+        elegirColor(ev){
+            console.log(this);
         }
 
       }
