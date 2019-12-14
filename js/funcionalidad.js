@@ -8,6 +8,7 @@
 
       class Juego {
         constructor() {
+        this.inicializar = this.inicializar.bind(this)
           this.inicializar()
           this.generarSecuencia()
           setTimeout(this.siguienteNivel(),500)
@@ -17,7 +18,7 @@
         inicializar() {
             this.elegirColor = this.elegirColor.bind(this)
             this.siguienteNivel= this.siguienteNivel.bind(this)
-          btnEmpezar.classList.add('hide')
+            this.toogleBtnEmpezar()
           this.nivel = 1
           this.colores = {
             //   azul:azul es lo mismo que azul solo
@@ -27,6 +28,15 @@
             verde
 
           }
+        }
+
+        toogleBtnEmpezar(){
+            if(btnEmpezar.classList.contains('hide')){
+                btnEmpezar.classList.remove('hide')
+            }
+            else{
+                btnEmpezar.classList.add('hide')
+            }
         }
 
         generarSecuencia(){
@@ -113,7 +123,7 @@
                     this.nivel++
                     this.eliminarEventosClick()
                     if(this.nivel === (ULTIMO_NIVEL+1)){
-                        alert("gane")
+                       this.ganoElJuego()
                     }
                     else{
                         alert("Siguiente nivel")
@@ -124,10 +134,24 @@
                 }
             }
             else{
-               alert("perdio soorokiz")
+               this.perdioElJuego()
             }
 
         }
+
+        ganoElJuego(){
+            swal('Simon Dice','Felicitaciones ganaste el juego', 'success' )
+            .then(()=> this.inicializar()
+            ) 
+        }
+        perdioElJuego(){
+            swal('Simon Dice','Has perdido :(', 'error' )
+            .then(()=>{
+                this.eliminarEventosClick()
+                this.inicializar()
+            }) 
+        }
+
 
       }
 
